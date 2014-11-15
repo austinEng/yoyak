@@ -1,8 +1,31 @@
-body {
+/*body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}*/
+body {
+  font-family: 'Montserrat', arial, sans-serif;
+  background: repeat #9B59B6;
+}
+
+#title {
+  position: absolute;
+  top: 30%;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  font-size: 142px;
+  font-weight: 700;
+  color: white;
+}
+
+#names {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 }
