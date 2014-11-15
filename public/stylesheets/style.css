@@ -9,6 +9,7 @@ a {
 body {
   font-family: 'Montserrat', arial, sans-serif;
   background: repeat #9B59B6;
+  overflow: hidden;
 }
 
 #title {
@@ -22,12 +23,18 @@ body {
   color: white;
 }
 
+#title > div {
+  margin-top: -20px;
+  font-size: 16px;
+}
+
 #names {
   position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
   bottom: 0px;
+  overflow: hidden;
 }
 
 #names > span {

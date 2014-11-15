@@ -8,9 +8,9 @@
 <script src="/js/socket.io.js"></script>
 <script>
   var socket = io();
-  socket.on('data', function(name){
-    console.log('data');
-    //addName(name);
+  socket.on('data', function(data){
+    console.log(data);
+    addName(data.username, data.count);
   });
 
   names = [];
@@ -28,36 +28,61 @@
           lat: position.coords.latitude,
           lon: position.coords.longitude
         },
-        success: function(){}
+        success: function(data){
+          console.log(data);
+          for (var i = 0; i < data.length; i++) {
+            addName(data[i].username, data[i].count);
+          }
+        }
       });
   }
 
   sendLocation();
 
-  function addName(name) {
+  function addName(name, size) {
+    $("#title").animate({
+      opacity: 0.3
+    }, 300);
     var found = false;
     for (var i = 0; i < names.length; i++) {
-      if (names[i] == names) {
-        found = i;
+      if (names[i] == name) {
+        found = true;
         break;
       }
     }
-    if (found === false) {
+    if (found == false) {
       var el = $('<span id=' + name + '>').text(name);
       var randomColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
-      el.css('fontSize', 20);
+      el.css('fontSize', size);
       el.css('left', Math.random()*$(document).width() );
       el.css('top', Math.random()*$(document).height() );
-      el.css('color', randomColor);
+      el.css('color', '#ffffff');
       names.push(name);
+      el.css('opacity', 0);
       $('#names').append(el);
+      adjustPos(el);
+      el.animate({
+        opacity: 1
+      }, 300);
     } else {
-      el = $('#' + names);
-      var size = parseInt(el.css('fontSize')) + 2;
-      el.css('fontSize', size);
-      if (parseInt(size) + el.css('top') > $(document).height()) {
-        console.log('out')
-      }
+      el = $('#' + name);
+      el.css('fontSize', size* 2);
+      adjustPos(el);
+    }
+  }
+
+  function adjustPos(el) {
+    if (parseInt(el.height()) + parseInt(el.css('top')) > $(document).height()) {
+      var newpos = parseInt(el.css('top')) - 0.5 * parseInt(el.height());
+      el.animate({
+        top: newpos
+      }, 300);
+    }
+    if (parseInt(el.width()) + parseInt(el.css('left')) > $(document).width()) {
+      var newpos = parseInt(el.css('left')) - 0.5 * parseInt(el.width());
+      el.animate({
+        left: newpos
+      }, 300);
     }
   }
 </script>
@@ -69,6 +94,7 @@
 </div>
 <div id="title">
   YoYak
+  <div>please YO your location :)</div>
 </div>
 </body>
 </html>
