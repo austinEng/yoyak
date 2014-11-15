@@ -56,7 +56,7 @@
       el.css('fontSize', size);
       el.css('left', Math.random()*$(document).width() );
       el.css('top', Math.random()*$(document).height() );
-      el.css('color', randomColor);
+      el.css('color', '#ffffff');
       names.push(name);
       el.css('opacity', 0);
       $('#names').append(el);
@@ -66,7 +66,7 @@
       }, 300);
     } else {
       el = $('#' + names[found]);
-      el.css('fontSize', size*1.25);
+      el.css('fontSize', size*(size/2 +1));
       adjustPos(el);
     }
   }
