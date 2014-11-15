@@ -8,9 +8,12 @@
 <script src="/js/socket.io.js"></script>
 <script>
   var socket = io();
-  socket.on('yo', function(name){
-    addName(name);
+  socket.on('data', function(name){
+    console.log('data');
+    //addName(name);
   });
+
+  names = [];
 
   function sendLocation() {
       if (navigator.geolocation) {
@@ -32,7 +35,30 @@
   sendLocation();
 
   function addName(name) {
-    $('#names').append($('<span>').text(name));
+    var found = false;
+    for (var i = 0; i < names.length; i++) {
+      if (names[i] == names) {
+        found = i;
+        break;
+      }
+    }
+    if (found === false) {
+      var el = $('<span id=' + name + '>').text(name);
+      var randomColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+      el.css('fontSize', 20);
+      el.css('left', Math.random()*$(document).width() );
+      el.css('top', Math.random()*$(document).height() );
+      el.css('color', randomColor);
+      names.push(name);
+      $('#names').append(el);
+    } else {
+      el = $('#' + names);
+      var size = parseInt(el.css('fontSize')) + 2;
+      el.css('fontSize', size);
+      if (parseInt(size) + el.css('top') > $(document).height()) {
+        console.log('out')
+      }
+    }
   }
 </script>
 

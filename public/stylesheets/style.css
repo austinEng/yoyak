@@ -29,3 +29,7 @@ body {
   right: 0px;
   bottom: 0px;
 }
+
+#names > span {
+  position: absolute;
+}
