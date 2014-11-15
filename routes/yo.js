@@ -6,18 +6,21 @@ var User = require("../models/user");
 router.get('/', function(req, res) {
     var user = {};
     user.username = req.query.username;
-    user.location  = req.query.location.split(";");
-    console.log(user);
-    User.addUser(user, function(err, result) {
-        if (err) console.log(err);
-        else {
-        GLOBAL.io.emit('data', result);
-        //push via socketio
-        //console.log(result);
-        res.send(result);
-        }
+    if (typeof user.location != "undefined") {
+        user.location  = req.query.location.split(";");
+        console.log(user);
+        User.addUser(user, function(err, result) {
+            if (err) console.log(err);
+            else {
+            GLOBAL.io.emit('data', result);
+            //push via socketio
+            //console.log(result);
+            res.send(result);
+            }
 
-    });
+        });
+    }
+    else res.send("Please YO your location :)")
 
 });
 
