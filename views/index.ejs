@@ -46,7 +46,7 @@
     var found = false;
     for (var i = 0; i < names.length; i++) {
       if (names[i] == name) {
-        found = i;
+        found = true;
         break;
       }
     }
@@ -65,7 +65,7 @@
         opacity: 1
       }, 300);
     } else {
-      el = $('#' + names[found]);
+      el = $('#' + name);
       el.css('fontSize' * 2);
       adjustPos(el);
     }
