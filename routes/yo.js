@@ -7,13 +7,14 @@ router.get('/', function(req, res) {
     var user = {};
     user.username = req.query.username;
     user.location  = req.query.location.split(";");
+    console.log(user);
     User.addUser(user, function(err, result) {
         if (err) console.log(err);
         else {
-        GLOBAL.io.emit('data', result.$);
+        GLOBAL.io.emit('data', result);
         //push via socketio
-        console.log(result);
-        //res.send(result);
+        //console.log(result);
+        res.send(result);
         }
 
     });

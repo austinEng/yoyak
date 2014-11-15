@@ -17,7 +17,11 @@ userSchema.statics.addUser = function (user, callback) {
         if (!err && result) {
             //user exists
             console.log("user exists");
-            that.update({'username': usr.username}, {$inc: {count: 1}}, function (err, result) {
+            that.update({'username': usr.username}, {$inc: {count: 1}}, function (err, res) {
+                if (!err){
+                    result.count++;
+                    console.log(result);
+                }
                 callback(null, result);
             });
         }
@@ -26,8 +30,8 @@ userSchema.statics.addUser = function (user, callback) {
             //save user details
             var user = new that({
                 username: usr.username,
-                count: 0,
-                loc: user.location
+                count: 14,
+                loc: usr.location
             });
 
             user.save(function (err) {

@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var http = require('http');
 GLOBAL.io = require('socket.io')(http);
 
+//var config = require('config.js');
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/yoyak', function(err){
     if (!err) {
         GLOBAL.io.on('connection', function(socket){
@@ -20,6 +21,7 @@ mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/yoyak', functi
             //poll for new stuff
         }, 100);
     }
+    else throw err;
 });
 
 var routes = require('./routes/index');
