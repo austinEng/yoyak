@@ -6,7 +6,7 @@ var User = require("../models/user");
 router.get('/', function(req, res) {
     var user = {};
     user.username = req.query.username;
-    if (typeof user.location != "undefined") {
+    if (typeof req.query.location != "undefined") {
         user.location  = req.query.location.split(";");
         console.log(user);
         User.addUser(user, function(err, result) {
