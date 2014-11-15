@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+<title>YoYak</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+<script src="/js/socket.io.js"></script>
+<script>
+  var socket = io();
+  socket.on('yo', function(name){
+    addName(name);
+  });
+
+  function sendLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+      }
+  }
+  function showPosition(position) {
+      $.ajax({
+        url: '/yo/location',
+        type: 'GET',
+        data: {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude
+        },
+        success: function(){}
+      });
+  }
+
+  sendLocation();
+
+  function addName(name) {
+    $('#names').append($('<span>').text(name));
+  }
+</script>
+
+</head>
+
+<body>
+<div id="names">
+</div>
+<div id="title">
+  YoYak
+</div>
+</body>
 </html>
