@@ -30,7 +30,12 @@
           lat: position.coords.latitude,
           lon: position.coords.longitude
         },
-        success: function(){}
+        success: function(data){
+          console.log(data);
+          for (var i = 0; i < data.length; i++) {
+            addName(data[i].username, data[i].count);
+          }
+        }
       });
   }
 
