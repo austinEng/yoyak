@@ -9,9 +9,12 @@ router.get('/', function(req, res) {
     user.location  = req.query.location.split(";");
     User.addUser(user, function(err, result) {
         if (err) console.log(err);
+        else {
+        GLOBAL.io.emit('data', result.$);
         //push via socketio
         console.log(result);
         //res.send(result);
+        }
 
     });
 

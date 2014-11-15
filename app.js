@@ -4,6 +4,22 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+GLOBAL.io = require('socket.io')(http);
+
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/yoyak', function(err){
+    if (!err) {
+        GLOBAL.io.on('connection', function(socket){
+            console.log('a user connected');
+            socket.on('disconnect', function(){
+                console.log('user disconnected');
+            });
+        });
+        setTimeout(function(){
+            //poll for new stuff
+        }, 100);
+    }
+});
 
 var routes = require('./routes/index');
 var yo = require('./routes/yo');
