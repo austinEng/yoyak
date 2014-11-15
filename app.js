@@ -6,7 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var http = require('http');
-GLOBAL.io = require('socket.io')(http);
+
+
+var debug = require('debug')('yoyak');
 
 //var config = require('config.js');
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/yoyak', function(err){
@@ -28,6 +30,8 @@ var routes = require('./routes/index');
 var yo = require('./routes/yo');
 
 var app = express();
+var server = require('http').createServer(app);
+GLOBAL.io = require('socket.io')(server);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -76,4 +80,8 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+app.set('port', process.env.PORT || 3000);
+
+server.listen(app.get('port'), function() {
+    console.log('Express server listening on port ' + server.address().port);
+});
