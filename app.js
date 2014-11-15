@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var http = require('http');
 GLOBAL.io = require('socket.io')(http);
 
 mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/yoyak', function(err){
